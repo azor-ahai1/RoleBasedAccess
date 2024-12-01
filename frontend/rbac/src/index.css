@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-dark-background text-light-blue;
+  font-family: 'Raleway', sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  @apply w-2 bg-dark-primary;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-gray rounded-full;
+}
+
+/* Button styles */
+.btn-primary {
+  @apply px-4 py-2 bg-light-blue text-dark-primary rounded-md 
+         hover:bg-opacity-90 transition-colors 
+         focus:outline-none focus:ring-2 focus:ring-deep-blue;
+}
+
+.btn-secondary {
+  @apply px-4 py-2 bg-slate-gray text-light-blue rounded-md 
+         hover:bg-opacity-90 transition-colors 
+         focus:outline-none focus:ring-2 focus:ring-light-blue;
+}
+
+/* Card styles */
+.card {
+  @apply bg-slate-gray rounded-xl p-6 shadow-custom 
+         transition-colors-all hover:shadow-lg 
+         hover:bg-opacity-90;
+}
+
+/* Input styles */
+.input-primary {
+  @apply w-full px-3 py-2 
+         bg-dark-primary text-light-blue 
+         border border-slate-gray rounded-md 
+         focus:outline-none focus:ring-2 focus:ring-light-blue;
+}
+
+/* Additional styles for improved aesthetics */
+.header {
+  @apply flex justify-between items-center p-4 bg-gradient-primary text-light-blue;
+}
+
+.nav-link {
+  @apply text-light-blue hover:text-white transition-colors py-2 md:py-0 border-b md:border-b-0 border-slate-gray;
+}
+
+.login-button {
+  @apply bg-light-blue text-dark-primary rounded-md px-4 py-2 hover:bg-opacity-90 transition-colors;
+}
