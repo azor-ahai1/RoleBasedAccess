@@ -1,57 +1,75 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FaLinkedin, FaTwitter, FaGithub } from 'react-icons/fa';
 
 const Footer = () => {
   const socialLinks = [
-    { name: 'LinkedIn', url: '#', icon: <FaLinkedin /> },
-    { name: 'Twitter', url: '#', icon: <FaTwitter /> },
-    { name: 'GitHub', url: '#', icon: <FaGithub /> }
+    { name: 'LinkedIn', url: '#', icon: <FaLinkedin size={24} /> },
+    { name: 'Twitter', url: '#', icon: <FaTwitter size={24} /> },
+    { name: 'GitHub', url: '#', icon: <FaGithub size={24} /> }
+  ];
+
+  const quickLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+    { name: 'Services', path: '/services' },
+    { name: 'Contact', path: '/contact' }
   ];
 
   return (
     <footer className="bg-gradient-primary text-white py-8 border-t border-black">
-      <div className="container mx-auto px-4 grid md:grid-cols-3 gap-6">
-        <div>
-          <h3 className="text-xl font-bold mb-4">VRV Security</h3>
-          <p className="text-sm">
-            Empowering organizations with cutting-edge cybersecurity solutions.
-          </p>
-        </div>
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Company Info */}
+          <div className="text-center md:text-left">
+            <h3 className="text-xl font-bold mb-4">VRV Security</h3>
+            <p className="text-sm text-gray-300 max-w-xs mx-auto md:mx-0">
+              Empowering organizations with cutting-edge cybersecurity solutions.
+            </p>
+          </div>
 
-        <div>
-          <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-          <ul className="space-y-2">
-            {['Home', 'About', 'Services', 'Contact'].map((link) => (
-              <li key={link}>
-                <a 
-                  href="#" 
-                  className="text-white hover:text-yellow-300 transition-colors duration-200 ease-in-out"
+          {/* Quick Links */}
+          <div className="text-center md:text-left">
+            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+            <div className="grid grid-cols-2 gap-2 max-w-xs mx-auto md:mx-0">
+              {quickLinks.map((link) => (
+                <Link 
+                  key={link.name}
+                  to={link.path} 
+                  className="text-sm text-gray-300 hover:text-yellow-300 transition-colors duration-200 ease-in-out"
                 >
-                  {link}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+          </div>
 
-        <div>
-          <h4 className="text-lg font-semibold mb-4">Connect With Us</h4>
-          <div className="flex space-x-4">
-            {socialLinks.map((social) => (
-               <a 
-                key={social.name} 
-                href={social.url} 
-                className="text-white hover:text-yellow-300 transition-colors duration-200 ease-in-out"
-                aria-label={social.name}
-              >
-                {social.icon}
-              </a>
-            ))}
+          {/* Social Links */}
+          <div className="text-center md:text-left">
+            <h4 className="text-lg font-semibold mb-4">Connect With Us</h4>
+            <div className="flex justify-center md:justify-start space-x-6">
+              {socialLinks.map((social) => (
+                <a 
+                  key={social.name} 
+                  href={social.url} 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-yellow-300 transition-colors duration-200 ease-in-out"
+                  aria-label={social.name}
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="text-center mt-6">
-        <p className="text-sm">&copy; 2024 VRV Security. All Rights Reserved.</p>
+
+        {/* Copyright */}
+        <div className="border-t border-gray-700 mt-8 pt-6 text-center">
+          <p className="text-sm text-gray-400">
+            &copy; {new Date().getFullYear()} VRV Security. All Rights Reserved.
+          </p>
+        </div>
       </div>
     </footer>
   );

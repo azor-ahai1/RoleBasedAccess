@@ -2,12 +2,19 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { FaEye, FaEyeSlash, FaLock, FaEnvelope } from 'react-icons/fa';
+import { 
+  FaEye, 
+  FaEyeSlash, 
+  FaLock, 
+  FaEnvelope 
+} from 'react-icons/fa';
 import axios from 'axios';
+import { login, setAdminAuth } from '../store/authSlice';
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [loginType, setLoginType] = useState('user'); // 'user' or 'admin'
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -20,33 +27,76 @@ const Login = () => {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      const response = await axios.post('/api/login', {
-        email: data.email,
-        password: data.password
-      });
+      const endpoint = loginType === 'admin' 
+        ? '/api/admin/login' 
+        : '/api/user/login';
 
-      dispatch(loginSuccess(response.data.user));
-      navigate('/dashboard');
+      const payload = {
+        email: data.email,
+        password: data.password,
+      };
+
+      const response = await axios.post(endpoint, payload);
+
+      // Dispatch login action based on login type
+      if (loginType === 'admin') {
+        dispatch(login(response.data.admin));
+        dispatch(setAdminAuth(true));
+        navigate('/admin/dashboard');
+      } else {
+        dispatch(login(response.data.user));
+        navigate('/dashboard');
+      }
     } catch (error) {
       console.error('Login error:', error);
-      // Handle login error (show toast, etc.)
+      // Handle login error (show toast, error message, etc.)
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div 
-      className=" flex items-center justify-center py-4 pb-24 px-4 sm:px-6 lg:px-8 bg-gradient-primary"
-    >
+    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-primary">
       <div className="max-w-md w-full bg-dark-primary/90 backdrop-blur-sm p-10 rounded-xl shadow-2xl border border-dark-primary/50">
+        {/* Login Type Selector */}
+        <div className="flex justify-center mb-8">
+          <div className="flex bg-dark-primary border border-slate-gray rounded-lg">
+            <button
+              type="button"
+              onClick={() => setLoginType('user')}
+              className={`
+                flex items-center px-6 py-2 rounded-lg transition-all
+                ${loginType === 'user' 
+                  ? 'bg-light-blue text-dark-primary' 
+                  : 'text-gray-300 hover:bg-dark-primary/50'}
+              `}
+            >
+              User Login
+            </button>
+            <button
+              type="button"
+              onClick={() => setLoginType('admin')}
+              className={`
+                flex items-center px-6 py-2 rounded-lg transition-all
+                ${loginType === 'admin' 
+                  ? 'bg-light-blue text-dark-primary' 
+                  : 'text-gray-300 hover:bg-dark-primary/50'}
+              `}
+            >
+              Admin Login
+            </button>
+          </div>
+        </div>
+
         {/* Header */}
         <div className="mb-8 text-center">
           <h2 className="text-3xl font-bold text-light-blue">
-            Welcome Back
+            {loginType === 'admin' ? 'Admin Login' : 'Welcome Back'}
           </h2>
           <p className="mt-2 text-sm text-gray-300">
-            Sign in to access your dashboard
+            {loginType === 'admin' 
+              ? 'Login to admin dashboard' 
+              : 'Sign in to access your account'}
           </p>
         </div>
 
@@ -99,10 +149,6 @@ const Login = () => {
                 type={showPassword ? 'text' : 'password'}
                 {...register('password', {
                   required: 'Password is required',
-                  minLength: {
-                    value: 8,
-                    message: 'Password must be at least 8 characters',
-                  },
                 })}
                 className={`
                   appearance-none block w-full px-4 py-3 pl-10 pr-10
@@ -141,18 +187,15 @@ const Login = () => {
                 transition-all duration-300
               `}
             >
-              {loading ? 'Signing In...' : 'Sign In'}
+              {loading 
+                ? 'Logging In...' 
+                : `Login as ${loginType === 'admin' ? 'Admin' : 'User'}`
+              }
             </button>
           </div>
 
           {/* Footer Links */}
           <div className="text-center">
-            <Link 
-              to="/forgot-password" 
-              className="text-sm text-light-blue hover:underline"
-            >
-              Forgot Password?
-            </Link>
             <div className="mt-4 text-sm text-gray-300">
               Don't have an account? {' '}
               <Link 
@@ -160,6 +203,14 @@ const Login = () => {
                 className="text-light-blue hover:underline"
               >
                 Sign Up
+              </Link >
+            </div>
+            <div className="mt-2 text-sm text-gray-300">
+              <Link 
+                to="/forgot-password" 
+                className="text-light-blue hover:underline"
+              >
+                Forgot Password?
               </Link>
             </div>
           </div>

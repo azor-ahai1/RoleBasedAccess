@@ -7,14 +7,16 @@ import {
   FaEyeSlash, 
   FaLock, 
   FaEnvelope, 
-  FaUser, 
-  FaShieldAlt 
+  FaUser,
+  FaUserShield,
+  FaIdBadge 
 } from 'react-icons/fa';
 import axios from 'axios';
 
 const Signup = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [signupType, setSignupType] = useState('user'); // 'user' or 'admin'
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -28,17 +30,29 @@ const Signup = () => {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      const response = await axios.post('/api/signup', {
+      const endpoint = signupType === 'admin' 
+        ? '/api/admin/signup' 
+        : '/api/user/signup';
+
+      const payload = {
         name: data.name,
         email: data.email,
-        password: data.password
-      });
+        password: data.password,
+        ...(signupType === 'admin' && { 
+          adminCode: data.adminCode 
+        })
+      };
 
-      // Dispatch signup action
-      dispatch(signupSuccess(response.data.user));
-      
-      // Navigate to dashboard
-      navigate('/dashboard');
+      const response = await axios.post(endpoint, payload);
+
+      // Dispatch signup action based on signup type
+      if (signupType === 'admin') {
+        dispatch(adminSignupSuccess(response.data.admin));
+        navigate('/admin/dashboard');
+      } else {
+        dispatch(userSignupSuccess(response.data.user));
+        navigate('/dashboard');
+      }
     } catch (error) {
       console.error('Signup error:', error);
       // Handle signup error (show toast, etc.)
@@ -49,16 +63,48 @@ const Signup = () => {
 
   return (
     <div 
-      className="flex items-center justify-center py-4 pb-24 px-4 sm:px-6 lg:px-8 bg-gradient-primary"
+      className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-primary"
     >
       <div className="max-w-md w-full bg-dark-primary/90 backdrop-blur-sm p-10 rounded-xl shadow-2xl border border-dark-primary/50">
+        {/* Signup Type Selector */}
+        <div className="flex justify-center mb-8">
+          <div className="flex bg-dark-primary border border-slate-gray rounded-lg">
+            <button
+              type="button"
+              onClick={() => setSignupType('user')}
+              className={`
+                flex items-center px-6 py-2 rounded-lg transition-all
+                ${signupType === 'user' 
+                  ? 'bg-light-blue text-dark-primary' 
+                  : 'text-gray-300 hover:bg-dark-primary/50'}
+              `}
+            >
+              <FaUser className="mr-2" /> User
+            </button>
+            <button
+              type="button"
+              onClick={() => setSignupType('admin')}
+              className={`
+                flex items-center px-6 py-2 rounded-lg transition-all
+                ${signupType === 'admin' 
+                  ? 'bg-light-blue text-dark-primary' 
+                  : 'text-gray-300 hover:bg-dark-primary/50'}
+              `}
+            >
+              <FaUserShield className="mr-2" /> Admin
+            </button>
+          </div>
+        </div>
+
         {/* Header */}
         <div className="mb-8 text-center">
           <h2 className="text-3xl font-bold text-light-blue">
-            Create Your Account
+            {signupType === 'admin' ? 'Admin Signup' : 'Create Your Account'}
           </h2>
           <p className="mt-2 text-sm text-gray-300">
-            Sign up to access your dashboard
+            {signupType === 'admin' 
+              ? 'Create an admin account' 
+              : 'Sign up to access your dashboard'}
           </p>
         </div>
 
@@ -68,18 +114,29 @@ const Signup = () => {
             <label className="block text-sm font-medium text-gray-300 mb-2">
               Full Name
             </label>
-            <input
-              type="text"
-              {...register('name', { required: 'Name is required' })}
-              className={`
-                appearance-none block w-full px-4 py-3
-                bg-dark-primary border rounded-lg
-                ${errors.name ? 'border-red-500' : 'border-slate-gray'}
-                text-white placeholder-gray-400
-                focus:outline-none focus:ring-2 focus:ring-light-blue
-              `}
-              placeholder="John Doe"
-            />
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <FaIdBadge className="text-gray-400" />
+              </div>
+              <input
+                type="text"
+                {...register('name', { 
+                  required: 'Name is required',
+                  minLength: {
+                    value: 2,
+                    message: 'Name must be at least 2 characters'
+                  }
+                })}
+                className={`
+                  appearance-none block w-full px-4 py-3 pl-10
+                  bg-dark-primary border rounded-lg
+                  ${errors.name ? 'border-red-500' : 'border-slate-gray'}
+                  text-white placeholder-gray-400
+                  focus:outline-none focus:ring-2 focus:ring-light-blue
+                `}
+                placeholder="John Doe"
+              />
+            </div>
             {errors.name && (
               <p className="mt-2 text-sm text-red-400">
                 {errors.name.message}
@@ -92,24 +149,29 @@ const Signup = () => {
             <label className="block text-sm font-medium text-gray-300 mb-2">
               Email Address
             </label>
-            <input
-              type="email"
-              {...register('email', {
-                required: 'Email is required',
-                pattern: {
-                  value: /\S+@\S+\.\S+/,
-                  message: 'Invalid email address',
-                },
-              })}
-              className={`
-                appearance-none block w-full px-4 py-3
-                bg-dark-primary border rounded-lg
-                ${errors.email ? 'border-red-500' : 'border-slate-gray'}
-                text-white placeholder-gray-400
-                focus:outline-none focus:ring-2 focus:ring-light-blue
-              `}
-              placeholder="you@example.com"
-            />
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <FaEnvelope className="text-gray-400" />
+              </div>
+              <input
+                type="email"
+                {...register('email', {
+                  required: 'Email is required',
+                  pattern: {
+                    value: /\S+@\S+\.\S+/,
+                    message: 'Invalid email address',
+                  },
+                })}
+                className={`
+                  appearance-none block w-full px-4 py-3 pl-10
+                  bg-dark-primary border rounded-lg
+                  ${errors.email ? 'border-red-500' : 'border-slate-gray'}
+                  text-white placeholder-gray-400
+                  focus:outline-none focus:ring-2 focus:ring-light-blue
+                `}
+                placeholder="you@example.com"
+              />
+            </div>
             {errors.email && (
               <p className="mt-2 text-sm text-red-400">
                 {errors.email.message}
@@ -123,6 +185,9 @@ const Signup = () => {
               Password
             </label>
             <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <FaLock className="text-gray-400" />
+              </div>
               <input
                 type={showPassword ? 'text' : 'password'}
                 {...register('password', {
@@ -133,9 +198,9 @@ const Signup = () => {
                   },
                 })}
                 className={`
-                  appearance-none block w-full px-4 py-3
+                  appearance-none block w-full px-4 py-3 pl-10 pr-10
                   bg-dark-primary border rounded-lg
-                  ${errors.password ? 'border-red-500' : 'border-slate-gray'}
+                  ${errors.password ? 'border-red-500' : 'border- slate-gray'}
                   text-white placeholder-gray-400
                   focus:outline-none focus:ring-2 focus:ring-light-blue
                 `}
@@ -156,6 +221,39 @@ const Signup = () => {
             )}
           </div>
 
+          {/* Admin Code Input (only for Admin signup) */}
+          {signupType === 'admin' && (
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Admin Code
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <FaLock className="text-gray-400" />
+                </div>
+                <input
+                  type="text"
+                  {...register('adminCode', {
+                    required: 'Admin code is required',
+                  })}
+                  className={`
+                    appearance-none block w-full px-4 py-3 pl-10
+                    bg-dark-primary border rounded-lg
+                    ${errors.adminCode ? 'border-red-500' : 'border-slate-gray'}
+                    text-white placeholder-gray-400
+                    focus:outline-none focus:ring-2 focus:ring-light-blue
+                  `}
+                  placeholder="Enter admin code"
+                />
+              </div>
+              {errors.adminCode && (
+                <p className="mt-2 text-sm text-red-400">
+                  {errors.adminCode.message}
+                </p>
+              )}
+            </div>
+          )}
+
           {/* Submit Button */}
           <div>
             <button
@@ -169,7 +267,10 @@ const Signup = () => {
                 transition-all duration-300
               `}
             >
-              {loading ? 'Signing Up...' : 'Sign Up'}
+              {loading 
+                ? 'Signing Up...' 
+                : `Sign Up as ${signupType === 'admin' ? 'Admin' : 'User '}`
+              }
             </button>
           </div>
 
@@ -179,7 +280,7 @@ const Signup = () => {
               Already have an account? {' '}
               <Link 
                 to="/login" 
-                className="text-light-blue hover :underline"
+                className="text-light-blue hover:underline"
               >
                 Log In
               </Link>

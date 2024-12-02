@@ -4,4 +4,33 @@ import Footer from "./Footer/Footer";
 // import About from "./About/About";
 import Login from "./Login";
 import Signup from "./Signup";
-export { Home, Header, Footer, Login, Signup}
+import AdminDashboard from "./AdminDashboard";
+import ManageUsers from "./ManageUsers";
+import UserDetail from "./UserDetail";
+import ManageAdmins from "./ManageAdmins";
+import AdminDetail from "./AdminDetail";
+import ManageProjects from "./ManageProjects";
+import ProjectDetail from "./ProjectDetail";
+import EditProject from "./EditProject";
+import CreateProject from "./CreateProject";
+import EditUser from "./EditUser";
+
+
+
+export { 
+    Home, 
+    Header, 
+    Footer, 
+    Login, 
+    Signup, 
+    AdminDashboard, 
+    ManageUsers, 
+    UserDetail, 
+    ManageAdmins, 
+    AdminDetail, 
+    ManageProjects, 
+    ProjectDetail, 
+    EditProject, 
+    CreateProject, 
+    EditUser
+}
