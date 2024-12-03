@@ -7,7 +7,7 @@ import {
   FaProjectDiagram,
   FaHistory,
   FaUsers, 
-  FaUserShield
+  FaUserShield,
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
@@ -63,9 +63,9 @@ const AdminDashboard = () => {
   ];
 
   const ManagementButtons = () => (
-    <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
       <Link 
-        to="/admin/manage-users"
+        to="/user/users"
         className="flex items-center justify-center space-x-3 
         bg-dark-primary/50 p-4 rounded-lg 
         hover:bg-slate-gray/30 transition-all 
@@ -73,7 +73,7 @@ const AdminDashboard = () => {
       >
         <FaUsers className="text-light-blue text-2xl" />
         <span className="text-light-blue font-semibold">
-          Manage All Users
+          Manage Users
         </span>
       </Link>
       <Link 
@@ -86,6 +86,18 @@ const AdminDashboard = () => {
         <FaUserShield className="text-light-blue text-2xl" />
         <span className="text-light-blue font-semibold">
           Manage Admins
+        </span>
+      </Link>
+      <Link 
+        to="/project/projects"
+        className="flex items-center justify-center space-x-3 
+        bg-dark-primary/50 p-4 rounded-lg 
+        hover:bg-slate-gray/30 transition-all 
+        border border-slate-gray/30"
+      >
+        <FaProjectDiagram className="text-light-blue text-2xl" />
+        <span className="text-light-blue font-semibold">
+          Manage Projects
         </span>
       </Link>
     </div>

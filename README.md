@@ -24,6 +24,26 @@ npm run dev
 Remember: The main index.html is in the following directory:
 root/frontent/rbac/index.html
 
+Here's a list of all the links in the router configuration:
+
+- **/**                         -       Home (Home component)  
+- **/login**                    -       Login (Login component)  
+- **/signup**                   -       Signup (Signup component)  
+- **/admin/dashboard**          -       Admin Dashboard (AdminHome component)  
+- **/user/users**               -       All Users (AllUsers component)  
+- **/users/:userId/view**       -       User Page (UserPage component)  
+- **/users/:userId/edit**       -       Edit User Page (EditUserPage component)  
+- **/users/create**             -       Create User Page (EditUserPage component)  
+- **/admin/admins**             -       All Admins (AllAdmins component)  
+- **/admins/:adminId/view**     -       Admin Page (AdminPage component)  
+- **/admins/:adminId/edit**     -       Edit Admin Page (EditAdminPage component)  
+- **/project/projects**         -       All Projects (AllProjects component)  
+- **/project/:projectId/view**  -       Project Page (ProjectPage component)  
+- **/project/:projectId/edit**  -       Edit Project Page (EditProjectPage component)  
+- **/project/create**           -       Create Project Page (CreateProjectPage component) 
+
+
+
 Website Structure and Features:
 - The website is divided into three main sections: Users, Roles, and Permissions.
 - Users, Roles and Permissions can be added, edited, and deleted.
@@ -76,19 +96,3 @@ Key Functionalities:
 Contact:
 Aashish Shukla
 aashishshukla910@gmail.com
-
-Here's a list of all the links in the router configuration:
-
-- **/**                         -       Home (Home component)  
-- **/login**                    -       Login (Login component)  
-- **/signup**                   -       Signup (Signup component)  
-- **/admin/dashboard**          -       Admin Dashboard (AdminHome component)  
-- **/admin/manage-users**       -       All Users (AllUsers component)  
-- **/users/:userId/view**       -       User Page (UserPage component)  
-- **/users/:userId/edit**       -       Edit User Page (EditUserPage component)  
-- **/admin/admins**             -       All Admins (AllAdmins component)  
-- **/admins/:adminId/view**     -       Admin Page (AdminPage component)  
-- **/project/projects**         -       All Projects (AllProjects component)  
-- **/project/:projectId/view**  -       Project Page (ProjectPage component)  
-- **/project/:projectId/edit**  -       Edit Project Page (EditProjectPage component)  
-- **/project/create**           -       Create Project Page (CreateProjectPage component)  

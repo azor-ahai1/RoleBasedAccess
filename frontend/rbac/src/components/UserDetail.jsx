@@ -130,7 +130,7 @@ const UserDetail = () => {
       <div className="container mx-auto max-w-5xl">
         {/* Back Button */}
         <button 
-          onClick={() => navigate('/admin/manage-users')}
+          onClick={() => navigate('/user/users')}
           className="flex items-center text-light-blue hover:text-white mb-6 transition-colors"
         >
           <FaArrowLeft className="mr-2" />

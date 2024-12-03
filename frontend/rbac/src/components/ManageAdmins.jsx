@@ -14,8 +14,10 @@ import React, {
     FaPlus,
     FaExclamationCircle,
     FaFilter,
+    FaEye,
     FaBars,
-    FaTimes
+    FaTimes,
+    FaArrowLeft
   } from 'react-icons/fa';
   import { motion, AnimatePresence } from 'framer-motion';
   import { useNavigate } from 'react-router-dom';
@@ -172,15 +174,22 @@ import React, {
             <div className="bg-gradient-to-r from-light-blue/20 to-dark-primary/30 p-6 border-b border-slate-gray/30">
               <div className="flex justify-between items-center">
                 <h1 className="text-2xl font-bold text-light-blue flex items-center">
+                  <button 
+                      onClick={() => navigate('/admin/dashboard')}
+                      className="text-light-blue hover:text-white mr-5"
+                      aria-label="Go back to admin list"
+                  >
+                      <FaArrowLeft className="text-xl" />
+                  </button>
                   <FaUserShield className="mr-2" />
                   Admin Management
                 </h1>
-                <button 
+                {/* <button 
                   onClick={() => navigate('/admins/create')}
                   className="bg-light-blue text-dark-primary px-4 py-2 rounded-lg hover:bg-opacity-90 transition-all"
                 >
                   <FaPlus className="inline mr-2" /> Add New Admin
-                </button>
+                </button> */}
               </div>
             </div>
   
@@ -239,10 +248,15 @@ import React, {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-light-blue">{admin.email}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-light-blue">{admin.role}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-light-blue">{admin.status}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <button onClick={() => handleAdminAction('view', admin)} className="text-light-blue hover:text-blue-500">View</button>
-                        <button onClick={() => handleAdminAction('edit', admin)} className="text-light-blue hover:text-blue-500 ml-4">Edit</button>
-                        <button onClick={() => handleAdminAction('delete', admin)} className="text-red-500 hover:text-red-700 ml-4">Delete</button>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium flex ml-4 items-center">
+                        <div className="flex items-center space-x-3">
+                            <button onClick={() => handleAdminAction('view', admin)} className="text-yellow-200 hover:text-white transition-colors group rounded-lg p-2"
+                            aria-label="View">
+                                <FaEye className="group-hover:scale-110 transition-transform" />
+                            </button>
+                        </div>
+                        {/* <button onClick={() => handleAdminAction('edit', admin)} className="text-light-blue hover:text-blue-500 ml-4">Edit</button>
+                        <button onClick={() => handleAdminAction('delete', admin)} className="text-red-500 hover:text-red-700 ml-4">Delete</button> */}
                       </td>
                     </tr>
                   ))}

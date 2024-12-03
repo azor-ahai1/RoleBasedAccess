@@ -13,7 +13,8 @@ import {
   FaChartLine,
   FaUsers,
   FaCloudUploadAlt,
-  FaSpinner 
+  FaSpinner, 
+  FaArrowLeft 
 } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -162,6 +163,13 @@ const ProjectDetail = () => {
                 <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                     <div className="flex flex-col md:flex-row items-center w-full md:w-auto">
                     <div className="flex items-center mb-2 md:mb-0 md:mr-4">
+                        <button 
+                            onClick={() => navigate('/project/projects')}
+                            className="text-light-blue hover:text-white mr-5"
+                            aria-label="Go back to admin list"
+                        >
+                            <FaArrowLeft className="text-xl" />
+                        </button>
                         <FaProjectDiagram className="mr-3 text-xl md:text-2xl text-light-blue" />
                         <h1 className="text-xl md:text-2xl font-bold text-light-blue mr-3">
                         {projectDetails.name}

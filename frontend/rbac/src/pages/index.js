@@ -11,7 +11,8 @@ import ProjectPage from "./ProjectPage";
 import EditProjectPage from "./EditProjectPage";
 import CreateProjectPage from "./CreateProjectPage";
 import EditUserPage from "./EditUserPage";
-
+import CreateUserPage from "./CreateUserPage";
+import EditAdminPage from "./EditAdminPage";
 
 
 export { 
@@ -27,6 +28,8 @@ export {
     ProjectPage, 
     EditProjectPage, 
     CreateProjectPage,
-    EditUserPage
+    EditUserPage,
+    CreateUserPage,
+    EditAdminPage
 }
 

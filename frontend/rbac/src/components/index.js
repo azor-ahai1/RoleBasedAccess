@@ -14,6 +14,8 @@ import ProjectDetail from "./ProjectDetail";
 import EditProject from "./EditProject";
 import CreateProject from "./CreateProject";
 import EditUser from "./EditUser";
+import CreateUser from "./CreateUser";
+import EditAdmin from "./EditAdmin";
 
 
 
@@ -32,5 +34,7 @@ export {
     ProjectDetail, 
     EditProject, 
     CreateProject, 
-    EditUser
+    EditUser,
+    CreateUser,
+    EditAdmin
 }

@@ -12,6 +12,7 @@ import {
   FaProjectDiagram,
   FaCheckCircle,
   FaExclamationCircle,
+  FaArrowLeft,
   FaUser
 } from 'react-icons/fa';
 import { motion } from 'framer-motion';
@@ -112,6 +113,13 @@ const AdminDetail = () => {
           <div className="bg-gradient-to-r from-light-blue/20 to-dark-primary/30 p-6 border-b border-slate-gray/30">
             <div className="flex justify-between items-center">
               <h1 className="text-2xl font-bold text-light-blue flex items-center">
+                <button 
+                    onClick={() => navigate('/admin/admins')}
+                    className="text-light-blue hover:text-white mr-5"
+                    aria-label="Go back to admin list"
+                >
+                    <FaArrowLeft className="text-xl" />
+                </button>
                 <FaUserShield className="mr-2" />
                 Admin Profile
               </h1>

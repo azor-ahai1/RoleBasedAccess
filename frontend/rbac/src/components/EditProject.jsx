@@ -10,7 +10,8 @@ import {
   FaExclamationCircle,
   FaPlus,
   FaTrash,
-  FaEdit
+  FaEdit,
+  FaArrowLeft,
 } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
@@ -431,32 +432,70 @@ const EditProject = () => {
           className="bg-dark-primary/90 rounded-3xl overflow-hidden shadow-2xl"
         >
           {/* Header Section */}
-          <div className="bg-gradient-to-r from-light-blue/20 to-dark-primary/30 p-6 border-b border-slate-gray/30">
-            <div className="flex justify-between items-center">
-              <h1 className="text-2xl font-bold text-light-blue flex items-center">
-                <FaProjectDiagram className="mr-3" />
-                Edit Project
-              </h1>
-              <div className="flex space-x-4">
-                <button
-                  type="button"
-                  onClick={() => navigate(`/project/${projectId}/view`)}
-                  className="bg-red-500/20 text-red-400 px-4 py-2 rounded-lg hover:bg-red-500/30 transition-all flex items-center"
-                >
-                  <FaTimes className="mr-2" /> Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className={`
-                    bg-light-blue text-dark-primary px-4 py-2 rounded-lg 
-                    hover:bg-opacity-90 transition-all flex items-center
-                    ${submitting ? 'opacity-50 cursor-not-allowed' : ''}
-                  `}
-                >
-                  <FaSave className="mr-2" /> 
-                  {submitting ? 'Saving...' : 'Save Changes'}
-                </button>
+          <div className="bg-gradient-to-r from-light-blue/20 to-dark-primary/30">
+            <div className="container mx-auto px-4">
+              <div className="flex flex-col md:flex-row items-center justify-between py-4 space-y-4 md:space-y-0">
+                {/* Header Section */}
+                <div className="flex items-center justify-between w-full md:w-auto">
+                  <h1 className="text-xl md:text-2xl font-bold text-light-blue flex items-center">
+                    <button 
+                      onClick={() => navigate(`/project/${projectId}/view`)}
+                      className="text-light-blue hover:text-white mr-3 md:mr-4"
+                      aria-label="Go back to project view"
+                    >
+                      <FaArrowLeft className="text-xl md:text-2xl" />
+                    </button>
+                    
+                    <div className="flex items-center">
+                      <FaProjectDiagram className="mr-2 md:mr-3 text-lg md:text-xl" />
+                      <span className="hidden md:inline">Edit Project</span>
+                      <span className="md:hidden">Edit</span>
+                    </div>
+                  </h1>
+                </div>
+
+                {/* Action Buttons - Responsive Layout */}
+                <div className="flex flex-col md:flex-row w-full md:w-auto space-y-2 md:space-y-0 md:space-x-4">
+                  <button
+                    type="button"
+                    onClick={() => navigate(`/project/${projectId}/view`)}
+                    className="
+                      w-full md:w-auto
+                      bg-red-500/20 text-red-400 
+                      px-4 py-2 rounded-lg 
+                      hover:bg-red-500/30 
+                      transition-all 
+                      flex items-center 
+                      justify-center
+                      hover:scale-105 
+                      active:scale-95
+                    "
+                  >
+                    <FaTimes className="mr-2" /> 
+                    <span className="hidden md:inline">Cancel</span>
+                    <span className="md:hidden">Close</span>
+                  </button>
+
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className={`
+                      w-full md:w-auto
+                      bg-light-blue text-dark-primary 
+                      px-4 py-2 rounded-lg 
+                      hover:bg-opacity-90 
+                      transition-all 
+                      flex items-center 
+                      justify-center
+                      ${submitting 
+                        ? 'opacity-50 cursor-not-allowed' 
+                        : 'hover:scale-105 active:scale-95'}
+                    `}
+                  >
+                    <FaSave className="mr-2" /> 
+                    {submitting ? 'Saving...' : 'Save Changes'}
+                  </button>
+                </div>
               </div>
             </div>
           </div>

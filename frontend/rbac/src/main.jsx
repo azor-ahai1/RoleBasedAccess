@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import store from './store/store.js'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import {Home, Login, Signup, AdminHome, AllUsers, UserPage, AllAdmins, AdminPage, AllProjects, ProjectPage, EditProjectPage, CreateProjectPage, EditUserPage} from './pages/index.js'
+import {Home, Login, Signup, AdminHome, AllUsers, UserPage, AllAdmins, AdminPage, AllProjects, ProjectPage, EditProjectPage, CreateProjectPage, EditUserPage, CreateUserPage, EditAdminPage} from './pages/index.js'
 
 const router = createBrowserRouter([
   {
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
           element: <AdminHome />,
         },
         {
-          path: "/admin/manage-users",
+          path: "/user/users",
           element: <AllUsers />,
         },
         {
@@ -42,12 +42,20 @@ const router = createBrowserRouter([
           element: <EditUserPage />
         },
         {
+          path: "/users/create",
+          element: <CreateUserPage />
+        },
+        {
           path: "/admin/admins",
           element: <AllAdmins />
         },
         {
           path: "/admins/:adminId/view",
           element: <AdminPage />
+        },
+        {
+          path: "/admins/:adminId/edit",
+          element: <EditAdminPage />
         },
         {
           path: "/project/projects",

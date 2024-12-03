@@ -242,26 +242,62 @@ const EditUser = () => {
       >
         <div className="bg-dark-primary/90 rounded-3xl overflow-hidden shadow-2xl">
           {/* Header */}
-          <div className="bg-gradient-to-r from-light-blue/20 to-dark-primary/30 p-6 border-b border-slate-gray/30 flex justify-between items-center">
-            <div className="flex items-center space-x-4">
-              <button 
-                onClick={() => navigate(`/users/${userId}/view`)}
-                className="text-light-blue hover:text-white"
-              >
-                <FaArrowLeft className="text-2xl" />
-              </button>
-              <h1 className="text-2xl font-bold text-light-blue flex items-center">
-                <FaUserShield className="mr-2" />
-                Edit User Profile
-              </h1>
+          <div className="bg-gradient-to-r from-light-blue/20 to-dark-primary/30 p-4 md:p-6 border-b border-slate-gray/30">
+            <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <div className="flex items-center space-x-2 md:space-x-4 w-full md:w-auto">
+                <button 
+                    onClick={() => navigate(`/users/${userId}/view`)}
+                    className="text-light-blue hover:text-white"
+                    aria-label="Go back to user profile"
+                >
+                    <FaArrowLeft className="text-xl md:text-2xl" />
+                </button>
+                <h1 className="text-xl md:text-2xl font-bold text-light-blue flex items-center">
+                    <FaUserShield className="mr-2 text-lg md:text-xl" />
+                    <span className="hidden md:inline">Edit User Profile</span>
+                    <span className="md:hidden">Edit Profile</span>
+                </h1>
+                </div>
+                <div className='flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 w-full md:w-auto'>
+                <button
+                    type="button"
+                    onClick={() => navigate(`/users/${userId}/view`)}
+                    className="
+                    w-full md:w-auto
+                    bg-red-500/20 text-red-400 
+                    px-4 py-2 rounded-lg 
+                    hover:bg-red-500/30 
+                    transition-all 
+                    flex items-center 
+                    justify-center
+                    hover:scale-105 
+                    active:scale-95
+                    "
+                >
+                    <FaTimes className="mr-2" /> 
+                    <span className="hidden md:inline">Cancel</span>
+                    <span className="md:hidden">Close</span>
+                </button>
+                <button 
+                    onClick={handleSubmit}
+                    className="
+                    w-full md:w-auto
+                    bg-light-blue text-dark-primary 
+                    px-4 py-2 rounded-lg 
+                    hover:bg-opacity-90 
+                    transition-all 
+                    flex items-center 
+                    justify-center
+                    hover:scale-105 
+                    active:scale-95
+                    "
+                >
+                    <FaSave className="mr-2" />
+                    <span className="hidden md:inline">Save Changes</span>
+                    <span className="md:hidden">Save</span>
+                </button>
+                </div>
             </div>
-            <button 
-              onClick={handleSubmit}
-              className="bg-light-blue text-dark-primary px-4 py-2 rounded-lg hover:bg-opacity-90 transition-all flex items-center"
-            >
-              <FaSave className="mr-2" />
-              Save Changes
-            </button>
           </div>
 
           {/* Form */}

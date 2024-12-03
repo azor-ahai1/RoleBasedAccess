@@ -13,6 +13,7 @@ import {
   FaChevronDown,
   FaChevronUp,
   FaEye,
+  FaArrowLeft
 } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
@@ -161,9 +162,16 @@ const ManageProjects = ({ initialPageSize = 10 }) => {
           transition={{ duration: 0.5 }}
           className="container mx-auto max-w-7xl space-y-6"
         >
-          {/* Enhanced Header */}
+          {/* Header */}
           <div className="flex flex-col md:flex-row justify-between items-center bg-dark-primary/30 rounded-xl p-4 shadow-md border border-slate-gray/20">
             <div className="flex items-center space-x-4 mb-4 md:mb-0">
+              <button 
+                  onClick={() => navigate('/admin/dashboard')}
+                  className="text-light-blue hover:text-white mr-5"
+                  aria-label="Go back to admin list"
+              >
+                  <FaArrowLeft className="text-xl" />
+              </button>
               <FaProjectDiagram className="text-3xl text-light-blue/80 animate-pulse" />
               <h1 className="text-2xl font-bold text-light-blue tracking-wide">
                 Project Management

@@ -8,7 +8,8 @@ import {
   FaEye,
   FaProjectDiagram,
   FaPlus,
-  FaExclamationCircle
+  FaExclamationCircle,
+  FaArrowLeft
 } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
@@ -166,6 +167,13 @@ const ManageUsers = () => {
           {/* Header */}
           <div className="flex flex-col md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0">
             <h1 className="text-xl md:text-3xl font-bold text-light-blue flex items-center">
+              <button 
+                  onClick={() => navigate('/admin/dashboard')}
+                  className="text-light-blue hover:text-white mr-5"
+                  aria-label="Go back to admin list"
+              >
+                  <FaArrowLeft className="text-xl" />
+              </button>
               <FaUser className="mr-3 text-light-blue/70" />
               User Management
             </h1>
