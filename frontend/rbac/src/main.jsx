@@ -4,7 +4,7 @@ import './index.css'
 import App from './App.jsx'
 import { Provider } from 'react-redux'
 import store from './store/store.js'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, HashRouter } from 'react-router-dom'
 
 import {Home, Login, Signup, AdminHome, AllUsers, UserPage, AllAdmins, AdminPage, AllProjects, ProjectPage, EditProjectPage, CreateProjectPage, EditUserPage, CreateUserPage, EditAdminPage} from './pages/index.js'
 
@@ -81,10 +81,10 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <HashRouter>
+        <RouterProvider router={router} />
+      </HashRouter>
     </Provider>
   </StrictMode>,
 )
 
-
-// "homepage": "https://azor-ahai1.github.io/RoleBasedAccess/frontend/rbac/"
