@@ -40,5 +40,5 @@
     "tailwindcss": "^3.4.15",
     "vite": "^6.0.1"
   },
-  "homepage": "https://azor-ahai1.github.io/RoleBasedAccess/frontend/rbac/"
+  "homepage": "https://azor-ahai1.github.io/RoleBasedAccess/tree/main/frontend/rbac/"
 }
